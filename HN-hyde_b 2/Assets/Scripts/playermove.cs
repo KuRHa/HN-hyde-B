@@ -18,6 +18,8 @@ public class playermove : MonoBehaviour
 
     private Vector3 _velocity;
 
+    public int attackPower = 10;
+
     // Start is called before the first frame update
     void Start()
     {
