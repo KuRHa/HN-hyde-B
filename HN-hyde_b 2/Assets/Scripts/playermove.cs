@@ -2,8 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(BoxCollider))]
+[RequireComponent(typeof(Rigidbody))]
 
 public class playermove : MonoBehaviour
 {
@@ -20,11 +22,23 @@ public class playermove : MonoBehaviour
 
     public int attackPower = 10;
 
+    private int playerMaxHP = 100;
+    private int currentHP;
+
+    public Slider hpSlider;
+
+    [SerializeField] Enemy enemyAttack;
+    [SerializeField] BossEnemy bossEnemyAttack;
+
     // Start is called before the first frame update
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
         _rb.constraints = RigidbodyConstraints.FreezeRotation;
+
+        currentHP = playerMaxHP;
+
+        hpSlider.value = 1;
     }
 
     // Update is called once per frame
@@ -64,6 +78,23 @@ public class playermove : MonoBehaviour
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveCamera.hRotation * -_velocity), applySpeed);
             transform.position += moveCamera.hRotation * _velocity;
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            currentHP = currentHP - enemyAttack.attackPower;
+
+            hpSlider.value = (float)currentHP / (float)playerMaxHP;
+        }
+
+        if(collision.gameObject.tag == "BossEnemy")
+        {
+            currentHP = currentHP - bossEnemyAttack.bossAttack;
+
+            hpSlider.value = (float)currentHP / (float)playerMaxHP;
         }
     }
 }

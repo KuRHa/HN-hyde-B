@@ -11,6 +11,7 @@ public class BossEnemy : MonoBehaviour
 {
     private int bossHP = 300;
     private int currentHP;
+    public int bossAttack = 30;
 
     [SerializeField] private playermove playerMove;
     // [SerializeField] private GameObject playerObject;
@@ -22,12 +23,14 @@ public class BossEnemy : MonoBehaviour
     [SerializeField] private float stopDistance;
     [SerializeField] private float moveDistance;
 
+    public Slider bossHPSlider;
+
 
     // Start is called before the first frame update
     void Start()
     {
-
         currentHP = bossHP;
+        bossHPSlider.value = 1;
     }
 
     // Update is called once per frame
@@ -45,6 +48,8 @@ public class BossEnemy : MonoBehaviour
         {
             currentHP = currentHP - playerMove.attackPower;
             Debug.Log(currentHP);
+
+            bossHPSlider.value = (float)currentHP / (float)bossHP;
 
             if(currentHP == 0)
             {

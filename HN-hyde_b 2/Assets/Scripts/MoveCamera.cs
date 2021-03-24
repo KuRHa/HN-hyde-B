@@ -15,7 +15,7 @@ public class MoveCamera : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        vRotation = Quaternion.Euler(30, 0, 0);
+        vRotation = Quaternion.Euler(20, 0, 0);
         hRotation = Quaternion.identity;
 
         transform.rotation = hRotation * vRotation;
