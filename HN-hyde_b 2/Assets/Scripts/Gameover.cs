@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Gameclear : MonoBehaviour
+public class Gameover : MonoBehaviour
 {
     // Start is called before the first frame update
     public void OnClickStartButton()
     {
-        SceneManager.LoadScene("Gameclear");
+        SceneManager.LoadScene("Gameover");
     }
 
     // Update is called once per frame
