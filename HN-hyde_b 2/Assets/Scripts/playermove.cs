@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO.IsolatedStorage;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,13 +23,17 @@ public class playermove : MonoBehaviour
 
     public int attackPower = 10;
 
-    private int playerMaxHP = 100;
+    private int playerMaxHP = 1000;
     public int currentHP;
 
     public Slider hpSlider;
 
     [SerializeField] Enemy enemyAttack;
     [SerializeField] BossEnemy bossEnemyAttack;
+
+    [SerializeField] Animation _animation;
+
+    [SerializeField] GameObject _trail;
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +44,8 @@ public class playermove : MonoBehaviour
         currentHP = playerMaxHP;
 
         hpSlider.value = 1;
+
+        _trail.SetActive(false);
     }
 
     // Update is called once per frame
@@ -50,6 +57,7 @@ public class playermove : MonoBehaviour
     private void FixedUpdate()
     {
         PlayerMove();
+        Attack();
     }
 
     void PlayerMove()
@@ -78,6 +86,14 @@ public class playermove : MonoBehaviour
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveCamera.hRotation * -_velocity), applySpeed);
             transform.position += moveCamera.hRotation * _velocity;
+        }
+    }
+
+    void Attack()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            _trail.SetActive(true);
         }
     }
 
