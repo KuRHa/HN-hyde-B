@@ -23,7 +23,7 @@ public class playermove : MonoBehaviour
     public int attackPower = 10;
 
     private int playerMaxHP = 100;
-    private int currentHP;
+    public int currentHP;
 
     public Slider hpSlider;
 

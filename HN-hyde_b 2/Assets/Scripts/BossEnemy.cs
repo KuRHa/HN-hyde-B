@@ -10,7 +10,7 @@ using UnityEngine.UI;
 public class BossEnemy : MonoBehaviour
 {
     private int bossHP = 300;
-    private int currentHP;
+    public int currentHP;
     public int bossAttack = 30;
 
     [SerializeField] private playermove playerMove;
@@ -50,11 +50,6 @@ public class BossEnemy : MonoBehaviour
             Debug.Log(currentHP);
 
             bossHPSlider.value = (float)currentHP / (float)bossHP;
-
-            if(currentHP == 0)
-            {
-                Destroy(this.gameObject);
-            }
         }
 
         if(collision.gameObject.tag == "Ground")
