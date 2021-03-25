@@ -36,11 +36,11 @@ public class GameResult : MonoBehaviour
                 SceneManager.LoadScene("Gameclear");
             }
         }
-        
 
-        //if (playerHP.currentHP == 0)
-        //{
-        //    SceneManager.LoadScene("Gameover");
-        //}
+
+        if (playerHP.currentHP == 0)
+        {
+            SceneManager.LoadScene("Gameover");
+        }
     }
 }
