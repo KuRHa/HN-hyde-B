@@ -31,9 +31,9 @@ public class playermove : MonoBehaviour
     [SerializeField] Enemy enemyAttack;
     [SerializeField] BossEnemy bossEnemyAttack;
 
-    [SerializeField] Animation _animation;
+   // [SerializeField] GameObject _trail;
 
-    [SerializeField] GameObject _trail;
+    Animator animator;
 
     // Start is called before the first frame update
     void Start()
@@ -45,7 +45,9 @@ public class playermove : MonoBehaviour
 
         hpSlider.value = 1;
 
-        _trail.SetActive(false);
+      //  _trail.SetActive(false);
+
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -57,7 +59,6 @@ public class playermove : MonoBehaviour
     private void FixedUpdate()
     {
         PlayerMove();
-        Attack();
     }
 
     void PlayerMove()
@@ -82,18 +83,15 @@ public class playermove : MonoBehaviour
         }
 
         _velocity = _velocity.normalized * moveSpeed * Time.deltaTime;
-        if (_velocity.magnitude > 0)
+        if (_velocity.magnitude >= 0.1)
         {
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveCamera.hRotation * -_velocity), applySpeed);
+            animator.SetFloat("Walk", _velocity.magnitude);
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveCamera.hRotation * _velocity), applySpeed);
             transform.position += moveCamera.hRotation * _velocity;
         }
-    }
-
-    void Attack()
-    {
-        if (Input.GetMouseButtonDown(0))
+        else
         {
-            _trail.SetActive(true);
+            animator.SetFloat("Walk", 0);
         }
     }
 
@@ -101,16 +99,20 @@ public class playermove : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            currentHP = currentHP - enemyAttack.attackPower;
+            if(enemyAttack!=null)
+            {
+                currentHP = currentHP - enemyAttack.attackPower;
 
-            hpSlider.value = (float)currentHP / (float)playerMaxHP;
+                hpSlider.value = (float)currentHP / (float)playerMaxHP;
+            }
+           
         }
 
-        if(collision.gameObject.tag == "BossEnemy")
+        if (collision.gameObject.tag == "BossEnemy")
         {
-            currentHP = currentHP - bossEnemyAttack.bossAttack;
+                currentHP = currentHP - bossEnemyAttack.bossAttack;
 
-            hpSlider.value = (float)currentHP / (float)playerMaxHP;
+                hpSlider.value = (float)currentHP / (float)playerMaxHP;
         }
     }
 }

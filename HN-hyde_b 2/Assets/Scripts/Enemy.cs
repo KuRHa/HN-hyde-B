@@ -11,12 +11,12 @@ using UnityEngine.UI;
 public class Enemy : MonoBehaviour
 {
     private int maxHP = 100;
-    private int currentHP;
+    public int currentHP;
 
     public int attackPower = 10;
 
     [SerializeField] private playermove playerAttack;
-    private GameObject goalPlayer;
+    public GameObject goalPlayer;
 
     public NavMeshAgent _enemy;
 
@@ -30,7 +30,7 @@ public class Enemy : MonoBehaviour
     {
         currentHP = maxHP;
         _enemy = GetComponent<NavMeshAgent>();
-        goalPlayer = GameObject.Find("player");
+        //goalPlayer = GameObject.Find("player");
 
         enemyHPSlider.value = 1;
     }
@@ -47,21 +47,21 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if(collision.gameObject.tag == "Player")
-        {
-            currentHP = currentHP - playerAttack.attackPower;
-            Debug.Log(currentHP);
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    if(collision.gameObject.tag == "Player")
+    //    {
+    //        currentHP = currentHP - playerAttack.attackPower;
+    //        Debug.Log(currentHP);
 
-            enemyHPSlider.value = (float)currentHP / (float)maxHP;
+    //        enemyHPSlider.value = (float)currentHP / (float)maxHP;
 
 
-            if (currentHP == 0)
-            {
-                Destroy(this.gameObject);
-                Debug.Log("aaaaaaaa");
-            }
-        }
-    }
+    //        if (currentHP == 0)
+    //        {
+    //            Destroy(this.gameObject);
+    //            Debug.Log("aaaaaaaa");
+    //        }
+    //    }
+    //}
 }

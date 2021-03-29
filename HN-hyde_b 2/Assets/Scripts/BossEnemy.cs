@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 public class BossEnemy : MonoBehaviour
 {
-    private int bossHP = 300;
+    public int bossHP = 300;
     public int currentHP;
     public int bossAttack = 30;
 
@@ -44,13 +44,13 @@ public class BossEnemy : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "Player")
-        {
-            currentHP = currentHP - playerMove.attackPower;
-            Debug.Log(currentHP);
+        //if(collision.gameObject.tag == "Player")
+        //{
+        //    currentHP = currentHP - playerMove.attackPower;
+        //    Debug.Log(currentHP);
 
-            bossHPSlider.value = (float)currentHP / (float)bossHP;
-        }
+        //    bossHPSlider.value = (float)currentHP / (float)bossHP;
+        //}
 
         if(collision.gameObject.tag == "Ground")
         {
